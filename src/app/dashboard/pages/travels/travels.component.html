@@ -1,0 +1,10 @@
+<mat-form-field class="form-field" appearance="fill">
+    <mat-label>Filtro</mat-label>
+    <mat-select class="select" [(value)]="selected" >
+      <mat-option  [value]=option.value *ngFor="let option of options" >
+       <span style="font-weight: bold;"> {{option.viewValue}}</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+<app-table *ngIf="selected" [displayedColumns]="columns" [dataSource]="element" [buttonEnable]="buttonEnable" [nameButton]="nameButton"></app-table>
+<app-table *ngIf="!selected" [displayedColumns]="columns" [dataSource]="elemento" [buttonEnable]="buttonEnable" [nameButton]="nameButton"></app-table>
