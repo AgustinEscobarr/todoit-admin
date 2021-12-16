@@ -16,5 +16,7 @@ import { StatusTravelPipe } from '../pipes/status-travel.pipe';
     MaterialModule
   ],
   providers:[StatusTravelPipe]
+  ,
+  exports:[DashboardComponentsModule]
 })
 export class DashboardPagesModule { }

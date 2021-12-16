@@ -1,8 +1,9 @@
-import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { PeriodicElement } from '../../pages/travel-history/travel-history.component';
+import { States } from '../../pages/travels/travels.component';
+
 
 
 @Component({
@@ -13,14 +14,18 @@ import { PeriodicElement } from '../../pages/travel-history/travel-history.compo
 export class TableComponent implements OnInit, AfterViewInit {
   
 
+  @Input() nameSelect :string='';
+  @Input() states :States[]=[];
   @Input() nameButton: string='';
   @Input() buttonEnable :string='';
   @Input() displayedColumns: string[] = [];
   @Input() dataSource :MatTableDataSource<any[]>=new MatTableDataSource();
-
+  @Output() onStateChange: EventEmitter<string>=new EventEmitter()
+  select :number=1
    
    @ViewChild(MatPaginator) paginator!: MatPaginator;
    @ViewChild(MatSort) sort: MatSort=new MatSort();
+   
   constructor() {
     
    }
@@ -38,6 +43,10 @@ export class TableComponent implements OnInit, AfterViewInit {
     if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
     }
+  }
+  sendNewState(state:string){
+    this.onStateChange.emit(state);
+    
   }
 
   

@@ -5,6 +5,10 @@ import { TravelsData } from '../../models/travels-data';
 import { StatusTravelPipe } from '../../pipes/status-travel.pipe';
 import { MatTableDataSource } from '@angular/material/table';
 
+export interface States{
+  viewValue:string,
+  stateChange:number
+}
 interface options{
   value:number,
   viewValue:string
@@ -27,6 +31,24 @@ export class TravelsComponent implements OnInit {
   
   selected :number=0;
 
+  states:States[]=[
+    {
+      viewValue:'Pendiente',
+      stateChange:1
+    },
+    {
+      viewValue:'En curso',
+      stateChange:2
+    },
+    {
+      viewValue:'Entregado',
+      stateChange:3
+    },
+    {
+      viewValue:'Cancelado',
+      stateChange:4
+    }
+  ]
   options:options[]=[
     {
       value:1,
@@ -42,6 +64,7 @@ export class TravelsComponent implements OnInit {
     }
   ];
   buttonEnable:string='Estado';
+  nameSelect :string='Puedes cambiar el Estado';
   nameButton :string='Hacer algo'
   columns:string[] = ['Cliente', 'Dirección', 'Estado'];
   element :travels[]=[];
@@ -165,6 +188,10 @@ export class TravelsComponent implements OnInit {
       }
       
     )
+
+  }
+  changeState(change:string){
+    console.log(change);
 
   }
 
