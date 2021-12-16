@@ -13,7 +13,7 @@ const routes: Routes = [
     component:TravelHistoryComponent
     },
     {
-      path:'travels',
+      path:'',
       component: TravelsComponent
     }
   ]

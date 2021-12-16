@@ -4,6 +4,7 @@ import { DashboardComponentsModule } from '../components/dashboard-components.mo
 import { TravelHistoryComponent } from './travel-history/travel-history.component';
 import { MaterialModule } from 'src/app/material.module';
 import { TravelsComponent } from './travels/travels.component';
+import { StatusTravelPipe } from '../pipes/status-travel.pipe';
 
 
 
@@ -13,6 +14,7 @@ import { TravelsComponent } from './travels/travels.component';
     CommonModule,
     DashboardComponentsModule,
     MaterialModule
-  ]
+  ],
+  providers:[StatusTravelPipe]
 })
 export class DashboardPagesModule { }

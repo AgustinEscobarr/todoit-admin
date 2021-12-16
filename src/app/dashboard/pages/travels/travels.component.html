@@ -6,5 +6,5 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-<app-table *ngIf="selected" [displayedColumns]="columns" [dataSource]="element" [buttonEnable]="buttonEnable" [nameButton]="nameButton"></app-table>
-<app-table *ngIf="!selected" [displayedColumns]="columns" [dataSource]="elemento" [buttonEnable]="buttonEnable" [nameButton]="nameButton"></app-table>
+<app-table *ngIf="selected==1" [displayedColumns]="columns" [dataSource]="element" [buttonEnable]="buttonEnable" [nameButton]="nameButton"></app-table>
+<app-table *ngIf="selected==2" [displayedColumns]="columns" [dataSource]="element2" [buttonEnable]="buttonEnable" [nameButton]="nameButton"></app-table>

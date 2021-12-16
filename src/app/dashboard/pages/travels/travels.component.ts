@@ -1,88 +1,128 @@
 import { Component, OnInit } from '@angular/core';
+import { forkJoin } from 'rxjs';
 import { TravelByStateService } from '../../services/travel-by-state.service';
+import { TravelsData } from '../../models/travels-data';
+import { StatusTravelPipe } from '../../pipes/status-travel.pipe';
+
 interface options{
-  value:boolean,
+  value:number,
   viewValue:string
 }
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+interface travels{
+  Cliente:string,
+  Dirección:string,
+  date:string,
+  Estado:string,
+
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-const ELEMENT_DATO: PeriodicElement[] = [
-  {position: 1, name: 'jajajjaa', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Cambié', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Seeeeee', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Soy un capo', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Uwu', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+
+
 @Component({
   selector: 'app-travels',
   templateUrl: './travels.component.html',
   styleUrls: ['./travels.component.scss']
 })
 export class TravelsComponent implements OnInit {
-  selected=true
+  
+  selected :number=0;
 
   options:options[]=[
     {
-      value:true,
-      viewValue:'Viajes Disponibles'
+      value:1,
+      viewValue:'Viajes Activos'
     },
     {
-      value:false,
+      value:2,
+      viewValue:'Viajes Pendientes'
+    },
+    {
+      value:3,
       viewValue:'Viajes en Curso'
     }
   ];
   buttonEnable:string='symbol';
   nameButton :string='Hacer algo'
-  element : PeriodicElement[]= ELEMENT_DATA;
-  elemento:PeriodicElement[]=ELEMENT_DATO
-  columns:string[] = ['position', 'name', 'weight', 'symbol'];
+  element :travels[]=[];
+  element2 :travels[]=[]
+  columns:string[] = ['Cliente', 'Dirección', 'Estado'];
+  
+  
 
-  constructor(private travelByStateService :TravelByStateService) { }
+  constructor(private travelByStateService :TravelByStateService, private statusTravelPipe:StatusTravelPipe) { }
+  
 
   ngOnInit(): void {
-
-
+    this.getActiveTravels();
+    this.getPendingTravels();
   }
-  getTravels(){
-   /* 
+  getPendingTravels(){
+    let array :TravelsData[]=[]
     let uno = this.travelByStateService.travelsGet(1);
-   let cinco = this.travelByStateService.travelsGet(5);
+    let cinco = this.travelByStateService.travelsGet(5);
    
    forkJoin([uno,cinco]).subscribe(
      resp=>{
-       
-       this.=[...resp[0],...resp[1]];
-       
-       this.cards.sort((a,b)=>{
-         return (Date.parse(a.travelEquipmentDTOs[a.travelEquipmentDTOs.length- 1].operationDate)- Date.parse(b.travelEquipmentDTOs[b.travelEquipmentDTOs.length- 1].operationDate));
+       let travel :travels;
+       array=[...resp[0],...resp[1]];
+       array.forEach(e=>{
          
+         travel={
+           Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
+           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
+           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
+           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate
+         };
+         this.element2.push(travel);
+        
+         this.element2.sort((a,b)=>{
+           return (Date.parse(a.date)- Date.parse(b.date))
+         });
+        
        });
        
+  
      }
      
-   )*/
+   )
     
+  }
+  getActiveTravels(){
+    let array :TravelsData[]=[]
+    let uno = this.travelByStateService.travelsGet(1);
+    let dos = this.travelByStateService.travelsGet(2);
+    let tres = this.travelByStateService.travelsGet(3); 
+    let cinco = this.travelByStateService.travelsGet(5);
+    let seis = this.travelByStateService.travelsGet(6);
+    let siete =this.travelByStateService.travelsGet(7);
+    let ocho = this.travelByStateService.travelsGet(8);
+
+    forkJoin([uno,dos,tres,cinco,seis,siete,ocho]).subscribe(
+      resp=>{
+        let travel :travels;
+        array=[...resp[0],...resp[1],...resp[3],...resp[4],...resp[5],...resp[6]];
+        array.forEach(e=>{
+          
+          travel={
+            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
+            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
+            Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
+            date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate
+          };
+          this.element.push(travel);
+         
+          this.element.sort((a,b)=>{
+            return (Date.parse(a.date)- Date.parse(b.date))
+          });
+          
+         
+          
+        });
+        this.selected=1;
+   
+      }
+      
+    )
+
   }
 
 }
