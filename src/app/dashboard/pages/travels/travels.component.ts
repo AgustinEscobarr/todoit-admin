@@ -3,6 +3,7 @@ import { forkJoin } from 'rxjs';
 import { TravelByStateService } from '../../services/travel-by-state.service';
 import { TravelsData } from '../../models/travels-data';
 import { StatusTravelPipe } from '../../pipes/status-travel.pipe';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface options{
   value:number,
@@ -40,12 +41,15 @@ export class TravelsComponent implements OnInit {
       viewValue:'Viajes en Curso'
     }
   ];
-  buttonEnable:string='symbol';
+  buttonEnable:string='Estado';
   nameButton :string='Hacer algo'
+  columns:string[] = ['Cliente', 'Dirección', 'Estado'];
   element :travels[]=[];
   element2 :travels[]=[];
   element3:travels[]=[];
-  columns:string[] = ['Cliente', 'Dirección', 'Estado'];
+  elementTable: MatTableDataSource<any>=new MatTableDataSource(this.element);
+  elementTable2: MatTableDataSource<any>=new MatTableDataSource(this.element2);
+  elementTable3: MatTableDataSource<any>=new MatTableDataSource(this.element3);
   
   
 
@@ -101,7 +105,7 @@ export class TravelsComponent implements OnInit {
     forkJoin([uno,dos,tres,cinco,seis,siete,ocho]).subscribe(
       resp=>{
         let travel :travels;
-        array=[...resp[0],...resp[1],...resp[3],...resp[4],...resp[5],...resp[6]];
+        array=[...resp[0],...resp[1],...resp[2],...resp[3],...resp[4],...resp[5],...resp[6]];
         array.forEach(e=>{
           
           travel={
