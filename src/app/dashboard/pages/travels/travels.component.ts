@@ -43,7 +43,8 @@ export class TravelsComponent implements OnInit {
   buttonEnable:string='symbol';
   nameButton :string='Hacer algo'
   element :travels[]=[];
-  element2 :travels[]=[]
+  element2 :travels[]=[];
+  element3:travels[]=[];
   columns:string[] = ['Cliente', 'Dirección', 'Estado'];
   
   
@@ -54,6 +55,7 @@ export class TravelsComponent implements OnInit {
   ngOnInit(): void {
     this.getActiveTravels();
     this.getPendingTravels();
+    this.getTravelsInProgress();
   }
   getPendingTravels(){
     let array :TravelsData[]=[]
@@ -118,6 +120,43 @@ export class TravelsComponent implements OnInit {
           
         });
         this.selected=1;
+   
+      }
+      
+    )
+
+  }
+  getTravelsInProgress(){
+    let array :TravelsData[]=[]
+    
+    let dos = this.travelByStateService.travelsGet(2);
+    let tres = this.travelByStateService.travelsGet(3); 
+    let seis = this.travelByStateService.travelsGet(6);
+    let siete =this.travelByStateService.travelsGet(7);
+    let ocho = this.travelByStateService.travelsGet(8);
+
+    forkJoin([dos,tres,seis,siete,ocho]).subscribe(
+      resp=>{
+        let travel :travels;
+        array=[...resp[0],...resp[1],...resp[3],...resp[4]];
+        array.forEach(e=>{
+          
+          travel={
+            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
+            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
+            Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
+            date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate
+          };
+          this.element3.push(travel);
+         
+          this.element3.sort((a,b)=>{
+            return (Date.parse(a.date)- Date.parse(b.date))
+          });
+          
+         
+          
+        });
+        
    
       }
       
