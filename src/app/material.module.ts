@@ -15,6 +15,7 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDialogModule} from '@angular/material/dialog';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSidenavModule} from '@angular/material/sidenav';
+import { MatButtonModule } from '@angular/material/button';
 
 
 
@@ -56,7 +57,8 @@ import {MatSidenavModule} from '@angular/material/sidenav';
     MatDialogModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatButtonModule
   ]
 })
 export class MaterialModule { }
