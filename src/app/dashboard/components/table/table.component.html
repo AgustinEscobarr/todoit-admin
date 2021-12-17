@@ -1,19 +1,19 @@
-
-<mat-form-field appearance="standard">
-  <mat-label>Filter</mat-label>
-  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
+<div>
+<mat-form-field appearance="standard" class="color-box filter" >
+  <mat-label class="color-font">Buscar</mat-label>
+  <input matInput (keyup)="applyFilter($event)" class="color-font holder" placeholder="Ej. Ricardo Fort" #input>
 </mat-form-field>
-<table mat-table [dataSource]="dataSource" matSort>
+<table mat-table [dataSource]="dataSource" matSort class="color-box">
 
-    <ng-container matColumnDef="{{items}}" *ngFor="let items of displayedColumns">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header> {{items}} </th>
-      <td mat-cell *matCellDef="let element"> {{element[items]}} 
+    <ng-container matColumnDef="{{items}}" *ngFor="let items of displayedColumns" class="cell" >
+      <th mat-header-cell *matHeaderCellDef mat-sort-header class="color-font " style="font-size: 1rem;"> {{items}} </th>
+      <td mat-cell *matCellDef="let element" class="color-font align-tex"> {{element[items]}} 
 
-        <mat-form-field class="form-field" appearance="fill" *ngIf="buttonEnable==items">
-          <mat-label>{{nameSelect}}</mat-label>
+        <mat-form-field class="form-field border-color"appearance="fill" *ngIf="buttonEnable==items">
+          <mat-label class="">{{nameSelect}}</mat-label>
           <mat-select  class="select" [(value)]="element.date" >
-            <mat-option (click)="sendNewState(option.viewValue)" [value]=option.stateChange *ngFor="let option of states" >
-             <span style="font-weight: bold;"> {{option.viewValue}}</span>
+            <mat-option (click)="sendNewState(option.viewValue)" class="" [value]=option.stateChange *ngFor="let option of states" >
+             <span style="font-weight: bold;" class=""> {{option.viewValue}}</span>
             </mat-option>
           </mat-select>
         </mat-form-field>  
@@ -21,12 +21,12 @@
     </ng-container>
   
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;" class="row-hover"></tr>
 
     <tr class="mat-row" *matNoDataRow>
-      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+      <td class="mat-cell color-font" colspan="4">No data matching the filter "{{input.value}}"</td>
     </tr>
 
   </table>
   <mat-paginator [pageSizeOptions]="[5, 10]" aria-label="Select page of data"></mat-paginator>
-  
+</div>

@@ -2,6 +2,11 @@
     flex: 1 1 auto;
 }
 mat-toolbar{
-    background-color: #030a4d;
+    background-color: hsl(246,25%,15.69%);
     color: white;
+}
+mat-toolbar span{
+    margin-left: 2rem;
+    font-size: 1rem;
+    
 }

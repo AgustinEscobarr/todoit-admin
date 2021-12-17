@@ -1,3 +1,64 @@
+$bg-color:hsl(234.78,22.77%,19.8%);
+
+
 table{
     width: 100%;
 }
+.color-box{
+    color: white;
+    background-color: $bg-color;
+}
+.color-font{
+    color: white;
+    caret-color:white;
+}
+.border-color{
+    border: 1px solid  #a80b0b
+}
+.form-field{
+    background-color: white;
+    margin:0.2rem
+}
+.cell{
+    background-color: white;
+    
+    
+}
+.align-text{
+    text-align: start;
+    padding: 1rem;
+}
+.make-gold{
+    background-color: white;
+    color: $bg-color ;
+}
+::placeholder{
+    background-color: $bg-color;
+    color: white;
+}
+.filter{
+    width: 100%;
+    
+    align-self: center;
+}
+
+div{
+    box-sizing: border-box;
+    background-color: $bg-color;
+    padding: 1rem;
+    box-shadow: 0px 10px 35px 9px rgba(0,0,0,0.3);
+}
+.row-hover:hover{
+    background-color: rgb(59, 63, 109);
+    color: $bg-color ;
+    transition: 0.2s;
+}
+@media screen and (max-width:800) {
+    div{
+        padding: 0;
+    }
+    .align-text{
+        padding: 0;
+    }
+}
+

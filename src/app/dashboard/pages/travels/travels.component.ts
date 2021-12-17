@@ -33,20 +33,44 @@ export class TravelsComponent implements OnInit {
 
   states:States[]=[
     {
-      viewValue:'Pendiente',
+      viewValue:'Pendiente al Loc.',
       stateChange:1
     },
     {
-      viewValue:'En curso',
+      viewValue:'Asignado al Loc',
       stateChange:2
     },
     {
-      viewValue:'Entregado',
+      viewValue:'En curso al Loc.',
       stateChange:3
     },
     {
-      viewValue:'Cancelado',
+      viewValue:'A reparar',
       stateChange:4
+    },
+    {
+      viewValue:'Reparado',
+      stateChange:5
+    },
+    {
+      viewValue:'Asignado al Dom.',
+      stateChange:6
+    },
+    {
+      viewValue:'En curso al Dom.',
+      stateChange:7
+    },
+    {
+      viewValue:'Entregado',
+      stateChange:8
+    },
+    {
+      viewValue:'Recibido',
+      stateChange:9
+    },
+    {
+      viewValue:'Cancelado',
+      stateChange:10
     }
   ]
   options:options[]=[
