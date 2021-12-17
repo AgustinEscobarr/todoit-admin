@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { DashboardComponent } from './dashboard.component';
 import { TravelHistoryComponent } from './pages/travel-history/travel-history.component';
 import { TravelsComponent } from './pages/travels/travels.component';
+import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   { path: '', 
@@ -13,8 +14,12 @@ const routes: Routes = [
     component:TravelHistoryComponent
     },
     {
-      path:'',
+      path:'travels',
       component: TravelsComponent
+    },
+    {
+      path:'register',
+      component:RegisterComponent
     }
   ]
 }

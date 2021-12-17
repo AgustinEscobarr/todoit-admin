@@ -4,6 +4,7 @@ import { TableComponent } from './table/table.component';
 import { MaterialModule } from 'src/app/material.module';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { HeaderComponent } from './header/header.component';
+import { RouterModule } from '@angular/router';
 
 
 
@@ -17,7 +18,8 @@ import { HeaderComponent } from './header/header.component';
   ],
   imports: [
     CommonModule,
-    MaterialModule
+    MaterialModule,
+    RouterModule
   ],
   exports:[TableComponent,SideNavComponent,HeaderComponent]
 })

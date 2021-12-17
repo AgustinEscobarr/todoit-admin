@@ -1,3 +1,10 @@
 <mat-toolbar>
     <span>Todo IT</span>
+    <span class="spacer"></span>
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <mat-menu #menu="matMenu">
+    
+    <mat-divider></mat-divider>
+    <button mat-menu-item>Cerrar Sesion</button>
+</mat-menu>
   </mat-toolbar>

@@ -1,0 +1,65 @@
+<div class="container-form">
+    
+      <h1 class="titulo">Registrar</h1>
+    
+    
+
+
+      
+          <form class="form"  [formGroup]="registerForm" #formDirective=ngForm   (ngSubmit)="onSubmit(formDirective)">
+
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Rol de Usuario</mat-label>
+                <mat-select  class="select"  formControlName="rol" required >
+                  <mat-option  [value]=option *ngFor="let option of selectRol" >
+                   <span style="font-weight: bold;"> {{option.name}}</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+              <mat-form-field class="matform" appearance="fill">
+                <mat-label class="namefield">Nombre Completo:</mat-label>
+                <input name="name" type="name" matInput formControlName="fullName" required>
+              </mat-form-field>
+
+              <mat-form-field class="matform" appearance="fill">
+                <mat-label class="namefield">Email:</mat-label>
+                <input name="email" type="email" matInput formControlName="email" required>
+              </mat-form-field>
+
+              <mat-form-field class="matform" appearance="fill">
+                <mat-label class="namefield">Direccion:</mat-label>
+                <input name="address" type="address" matInput formControlName="address" required>
+              </mat-form-field>
+
+              <mat-form-field class="matform" appearance="fill">
+                <mat-label>Contraseña</mat-label>
+                  <input  matInput [type]="hide ? 'password' : 'text'" name="password" type="password" matInput formControlName="password" required>
+                  <button type="button" class="button-password" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                  <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                  </button>
+              </mat-form-field>
+
+              <mat-form-field class="matform" appearance="fill">
+                <mat-label class="namefield">Observaciones</mat-label>
+                <textarea name="observations" type="text" matInput formControlName="observations" required></textarea>
+              </mat-form-field>
+
+              <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Rol de Usuario</mat-label>
+                <mat-select  class="select"  formControlName="vehicle" required >
+                  <mat-option  [value]=option *ngFor="let option of selectVehicle" >
+                   <span style="font-weight: bold;"> {{option.name}}</span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              
+              
+              
+
+              
+                  <button class="button-submit" type="submit" mat-raised-button [disabled]="!registerForm.valid" >Registrar</button>
+              
+          </form>
+      
+</div>

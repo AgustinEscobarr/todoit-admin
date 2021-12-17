@@ -5,11 +5,13 @@ import { TravelHistoryComponent } from './travel-history/travel-history.componen
 import { MaterialModule } from 'src/app/material.module';
 import { TravelsComponent } from './travels/travels.component';
 import { StatusTravelPipe } from '../pipes/status-travel.pipe';
+import { RegisterComponent } from './register/register.component';
+
 
 
 
 @NgModule({
-  declarations: [TravelHistoryComponent, TravelsComponent],
+  declarations: [TravelHistoryComponent, TravelsComponent, RegisterComponent],
   imports: [
     CommonModule,
     DashboardComponentsModule,

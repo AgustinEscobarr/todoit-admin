@@ -5,11 +5,13 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
+
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material.module';
 import { AuthModule } from './auth/auth.module';
 import { DashboardModule } from './dashboard/dashboard.module';
 import { StatusTravelPipe } from './dashboard/pipes/status-travel.pipe';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,8 @@ import { StatusTravelPipe } from './dashboard/pipes/status-travel.pipe';
     MaterialModule,
     AuthModule,
     DashboardModule,
-    HttpClientModule
+    HttpClientModule,
+    RouterModule
   ],
   providers: [StatusTravelPipe],
   bootstrap: [AppComponent]
