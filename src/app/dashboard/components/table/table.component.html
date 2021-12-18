@@ -7,16 +7,22 @@
 
     <ng-container matColumnDef="{{items}}" *ngFor="let items of displayedColumns" class="cell" >
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="color-font " style="font-size: 1rem;"> {{items}} </th>
-      <td mat-cell *matCellDef="let element" class="color-font align-tex"> {{element[items]}} 
-
-        <mat-form-field class="form-field border-color"appearance="fill" *ngIf="buttonEnable==items">
-          <mat-label class="">{{nameSelect}}</mat-label>
-          <mat-select  class="select" [(value)]="element.date" >
-            <mat-option (click)="sendNewState(option.viewValue)" class="" [value]=option.stateChange *ngFor="let option of states" >
-             <span style="font-weight: bold;" class=""> {{option.viewValue}}</span>
-            </mat-option>
-          </mat-select>
-        </mat-form-field>  
+      <td mat-cell *matCellDef="let element" class="color-font align-tex "> {{element[items]}} 
+        
+        <ng-container *ngIf="buttonEnable==items">
+          <td mat-cell>
+          <mat-form-field class="form-field border-color"appearance="fill" >
+            <mat-label class="">{{nameSelect}}</mat-label>
+            <mat-select  class="select" [(value)]="element.date" >
+              <mat-option (click)="sendNewState(option.stateChange,element)" class="" [value]=option.stateChange *ngFor="let option of states" >
+               <span style="font-weight: bold;" class=""> {{option.viewValue}}</span>
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+        </td>
+        </ng-container>
+         
+      
       </td>
     </ng-container>
   

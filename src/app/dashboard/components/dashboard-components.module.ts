@@ -5,6 +5,7 @@ import { MaterialModule } from 'src/app/material.module';
 import { SideNavComponent } from './side-nav/side-nav.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
+import { ChangeTravelComponent } from './dialogs/change-travel/change-travel.component';
 
 
 
@@ -14,6 +15,7 @@ import { RouterModule } from '@angular/router';
     TableComponent,
     SideNavComponent,
     HeaderComponent,
+    ChangeTravelComponent,
     
   ],
   imports: [

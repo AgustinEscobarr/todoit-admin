@@ -4,6 +4,7 @@ import { TravelByStateService } from '../../services/travel-by-state.service';
 import { TravelsData } from '../../models/travels-data';
 import { StatusTravelPipe } from '../../pipes/status-travel.pipe';
 import { MatTableDataSource } from '@angular/material/table';
+import { Travels } from '../../models/travels-byModify-data';
 
 export interface States{
   viewValue:string,
@@ -13,13 +14,7 @@ interface options{
   value:number,
   viewValue:string
 }
-interface travels{
-  Cliente:string,
-  Dirección:string,
-  date:string,
-  Estado:string,
 
-}
 
 
 @Component({
@@ -85,18 +80,24 @@ export class TravelsComponent implements OnInit {
     {
       value:3,
       viewValue:'Viajes en Curso'
+    },
+    {
+      value:4,
+      viewValue:'Viajes Finalizados'
     }
   ];
   buttonEnable:string='Estado';
   nameSelect :string='Puedes cambiar el Estado';
   nameButton :string='Hacer algo'
   columns:string[] = ['Cliente', 'Dirección', 'Estado'];
-  element :travels[]=[];
-  element2 :travels[]=[];
-  element3:travels[]=[];
+  element :Travels[]=[];
+  element2 :Travels[]=[];
+  element3 :Travels[]=[];
+  element4 :Travels[]=[];
   elementTable: MatTableDataSource<any>=new MatTableDataSource(this.element);
   elementTable2: MatTableDataSource<any>=new MatTableDataSource(this.element2);
   elementTable3: MatTableDataSource<any>=new MatTableDataSource(this.element3);
+  elementTable4: MatTableDataSource<any>=new MatTableDataSource(this.element4);
   
   
 
@@ -115,7 +116,7 @@ export class TravelsComponent implements OnInit {
    
    forkJoin([uno,cinco]).subscribe(
      resp=>{
-       let travel :travels;
+       let travel :Travels;
        array=[...resp[0],...resp[1]];
        array.forEach(e=>{
          
@@ -123,7 +124,11 @@ export class TravelsComponent implements OnInit {
            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
            Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
-           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate
+           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
+           lastStatusTravel:e.lastStatusTravel,
+           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
+           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
+           isReasigned:false
          };
          this.element2.push(travel);
         
@@ -143,23 +148,28 @@ export class TravelsComponent implements OnInit {
     let array :TravelsData[]=[]
     let uno = this.travelByStateService.travelsGet(1);
     let dos = this.travelByStateService.travelsGet(2);
-    let tres = this.travelByStateService.travelsGet(3); 
+    let tres = this.travelByStateService.travelsGet(3);
+    let cuatro=this.travelByStateService.travelsGet(4); 
     let cinco = this.travelByStateService.travelsGet(5);
     let seis = this.travelByStateService.travelsGet(6);
     let siete =this.travelByStateService.travelsGet(7);
     let ocho = this.travelByStateService.travelsGet(8);
 
-    forkJoin([uno,dos,tres,cinco,seis,siete,ocho]).subscribe(
+    forkJoin([uno,dos,tres,cuatro,cinco,seis,siete,ocho]).subscribe(
       resp=>{
-        let travel :travels;
-        array=[...resp[0],...resp[1],...resp[2],...resp[3],...resp[4],...resp[5],...resp[6]];
+        let travel :Travels;
+        array=[...resp[0],...resp[1],...resp[2],...resp[3],...resp[4],...resp[5],...resp[6],...resp[7]];
         array.forEach(e=>{
           
           travel={
             Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
-            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
-            Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
-            date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate
+           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
+           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
+           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
+           lastStatusTravel:e.lastStatusTravel,
+           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
+           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5||e.lastStatusTravel==4 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
+           isReasigned:false
           };
           this.element.push(travel);
          
@@ -188,15 +198,19 @@ export class TravelsComponent implements OnInit {
 
     forkJoin([dos,tres,seis,siete,ocho]).subscribe(
       resp=>{
-        let travel :travels;
+        let travel :Travels;
         array=[...resp[0],...resp[1],...resp[3],...resp[4]];
         array.forEach(e=>{
           
           travel={
             Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
-            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
-            Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
-            date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate
+           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
+           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
+           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
+           lastStatusTravel:e.lastStatusTravel,
+           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
+           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
+           isReasigned:false
           };
           this.element3.push(travel);
          
@@ -214,7 +228,47 @@ export class TravelsComponent implements OnInit {
     )
 
   }
-  changeState(change:string){
+  getFinishedTravels(){
+    let array :TravelsData[]=[]
+    
+     
+    let cuatro = this.travelByStateService.travelsGet(4);
+    let siete =this.travelByStateService.travelsGet(7);
+    
+
+    forkJoin([cuatro,siete]).subscribe(
+      resp=>{
+        let travel :Travels;
+        array=[...resp[0],...resp[1]];
+        array.forEach(e=>{
+          
+          travel={
+            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
+           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
+           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
+           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
+           lastStatusTravel:e.lastStatusTravel,
+           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
+           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
+           isReasigned:false
+          };
+          this.element4.push(travel);
+         
+          this.element4.sort((a,b)=>{
+            return (Date.parse(a.date)- Date.parse(b.date))
+          });
+          
+         
+          
+        });
+        
+   
+      }
+      
+    )
+
+  }
+  changeState(change:object){
     console.log(change);
 
   }

@@ -4,6 +4,10 @@ $bg-color:hsl(234.78,22.77%,19.8%);
 table{
     width: 100%;
 }
+.td{
+    
+   
+}
 .color-box{
     color: white;
     background-color: $bg-color;
@@ -25,7 +29,7 @@ table{
     
 }
 .align-text{
-    text-align: start;
+    
     padding: 1rem;
 }
 .make-gold{
@@ -48,6 +52,7 @@ div{
     padding: 1rem;
     box-shadow: 0px 10px 35px 9px rgba(0,0,0,0.3);
 }
+
 .row-hover:hover{
     background-color: rgb(59, 63, 109);
     color: $bg-color ;
