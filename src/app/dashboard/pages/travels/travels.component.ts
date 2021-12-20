@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin } from 'rxjs';
+import { forkJoin, last } from 'rxjs';
 import { TravelByStateService } from '../../services/travel-by-state.service';
 import { TravelsData } from '../../models/travels-data';
 import { StatusTravelPipe } from '../../pipes/status-travel.pipe';
@@ -165,7 +165,7 @@ export class TravelsComponent implements OnInit {
         let travel :Travels;
         array=[...resp[0],...resp[1],...resp[2],...resp[3],...resp[4],...resp[5],...resp[6],...resp[7]];
         array.forEach(e=>{
-          
+          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null){
           travel={
             Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
@@ -177,6 +177,7 @@ export class TravelsComponent implements OnInit {
            isReasigned:false,
            travelId:e.id
           };
+        }
           this.element.push(travel);
          
           this.element.sort((a,b)=>{
@@ -207,7 +208,7 @@ export class TravelsComponent implements OnInit {
         let travel :Travels;
         array=[...resp[0],...resp[1],...resp[3],...resp[4]];
         array.forEach(e=>{
-          
+          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null && (e.lastStatusTravel!=1 && e.lastStatusTravel!=5)){
           travel={
             Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
@@ -219,6 +220,7 @@ export class TravelsComponent implements OnInit {
            isReasigned:false,
            travelId:e.id
           };
+        }
           this.element3.push(travel);
          
           this.element3.sort((a,b)=>{

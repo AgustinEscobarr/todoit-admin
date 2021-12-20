@@ -1,0 +1,41 @@
+::ng-deep .mat-tab-list .mat-tab-labels .mat-tab-label-active {
+    color:white;
+    background-color: hsl(234.78,22.77%,19.8%);
+    }
+    
+    ::ng-deep .mat-tab-list .mat-tab-labels {
+        color: white;
+    background-color: rgb(73, 78, 141);
+    
+    }
+main{
+    width: 100%;
+    height: 100%;
+}
+mat-tab-group{
+    width: 65vw;
+    height: 41rem;
+    
+}
+mat-tab-group mat-tab{
+    width: 100%;
+    height: 100%;
+    
+}
+mat-tab-group mat-tab app-table{
+    width: 100%;
+    height: 100%;
+}
+mat-tab-group {
+    color: white !important;
+}
+@media screen and (max-width:800px) {
+    mat-tab-group{
+        width: 70%;
+        height: 41rem;
+        margin: auto;
+        margin-top: 5rem;
+        
+        
+    }
+}

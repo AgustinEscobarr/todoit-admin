@@ -57,6 +57,15 @@ div{
     color: $bg-color ;
     transition: 0.2s;
 }
+.button-edit{
+    background-color: #29a114;
+    color: white;
+}
+.button-delete{
+    background-color: #aa1c1c;
+    color: white;
+    
+}
 @media screen and (max-width:800) {
     div{
         padding: 0;

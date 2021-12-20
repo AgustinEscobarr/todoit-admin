@@ -4,6 +4,8 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { Travels, InfoTravelChange } from '../../models/travels-byModify-data';
 import { States } from '../../pages/travels/travels.component';
+import { UserComplete } from '../../models/user-structure';
+import { DecisionList } from '../../models/decision-list';
 
 
 
@@ -23,7 +25,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() displayedColumns: string[] = [];
   @Input() dataSource :MatTableDataSource<any>=new MatTableDataSource();
   @Output() onStateChange: EventEmitter<InfoTravelChange>=new EventEmitter();
-  @Output() onEditUser: EventEmitter<object>=new EventEmitter();
+  @Output() onEditUser: EventEmitter<DecisionList>=new EventEmitter();
   select :number=1
    
    @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -55,10 +57,19 @@ export class TableComponent implements OnInit, AfterViewInit {
     this.onStateChange.emit(object);
     
   }
-  editUser(element:object){
-
+  editUser(element:UserComplete, choose:boolean){
+    let edit :DecisionList={
+      user:element,
+      choose:choose
+    };
+    this.onEditUser.emit(edit);
   }
-  deleteUser(element:object){
+  deleteUser(element:UserComplete, choose:boolean){
+    let del :DecisionList={
+      user:element,
+      choose:choose
+    };
+    this.onEditUser.emit(del);
 
   }
 

@@ -10,12 +10,15 @@ export class UserTypesService {
   
   private usersCadete :UserComplete[]=[];
   private usersFinals :UserComplete[]=[];
+  private usersAdmin :UserComplete[]=[];
   private userCadeteComplete$ :Subject<UserComplete[]>;
-  private userFinalsComplete$ :Subject<UserComplete[]>
+  private userFinalsComplete$ :Subject<UserComplete[]>;
+  private userAdminComplete$ :Subject<UserComplete[]>;
 
   constructor(private userService:UsersService) { 
     this.userCadeteComplete$=new Subject();
     this.userFinalsComplete$=new Subject();
+    this.userAdminComplete$=new Subject();
   }
   getCadete(){
     this.userService.getUsers().subscribe(resp=>{
@@ -39,6 +42,19 @@ export class UserTypesService {
     })
   }
 
+  getAdmins(){
+    this.userService.getUsers().subscribe(resp=>{
+      resp.forEach(element=>{
+        if(element.rol.id==1){
+          this.usersAdmin.push(element);
+        }
+      })
+      this.userAdminComplete$.next(this.usersAdmin);
+    })
+  }
+  
+
+
   getCadete$():Observable<UserComplete[]>{
 
     return this.userCadeteComplete$.asObservable();
@@ -46,5 +62,9 @@ export class UserTypesService {
 
   getFinalsUsers$():Observable<UserComplete[]>{
     return this.userFinalsComplete$.asObservable();
+  }
+  getAdmins$():Observable<UserComplete[]>{
+
+    return this.userAdminComplete$.asObservable();
   }
 }

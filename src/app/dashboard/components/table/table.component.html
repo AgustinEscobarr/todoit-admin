@@ -11,11 +11,15 @@
         
         <ng-container *ngIf="buttonsEdit==items">
           <td mat-cell>
-            <button mat-button (click)="editUser(element)">Editar</button>
-            <button mat-button (click)="deleteUser(element)">Elminitar</button>
+            <button class="button-edit" mat-button (click)="editUser(element,true)">Editar</button>
+            <ng-container>
+              <td>
+                <button class="button-delete" mat-button (click)="deleteUser(element,false)">Eliminar</button>
+              </td>
+            </ng-container>
           </td>
-
         </ng-container>
+        
         <ng-container *ngIf="buttonEnable==items">
           <td mat-cell>
           <mat-form-field class="form-field border-color"appearance="fill" >
