@@ -9,6 +9,6 @@ export interface UserComplete{
     isDeleted: boolean,
     observations: string,
     password: string,
-    vehicle: Vehicle|null,
+    vehicle: Vehicle,
     rol:Rol
   }

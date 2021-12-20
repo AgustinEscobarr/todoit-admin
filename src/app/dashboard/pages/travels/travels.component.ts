@@ -282,6 +282,13 @@ export class TravelsComponent implements OnInit {
     dialogRef.afterClosed().subscribe(resp=>{
       console.log('Estoy acá entonces funciona');
       console.log(resp);
+      this.modifyStatusService.modify(resp).subscribe(resp=>{
+        console.log(resp)
+        alert('Se pudo cambiar la información del viaje');
+      },
+      error=>{
+        alert('no te pudo cambiar la información del viaje : '+error.status );
+      })
       
     })
   }

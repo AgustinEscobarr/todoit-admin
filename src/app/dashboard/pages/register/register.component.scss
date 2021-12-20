@@ -9,6 +9,8 @@ main{
     align-items: center;
     background-color: hsl(234.78,22.77%,19.8%) ;
     padding: 1rem;
+    margin:auto;
+    margin-top: 2rem;
 }
 .inputNumber::-webkit-inner-spin-button{
     -webkit-appearance: none;
@@ -20,7 +22,9 @@ form mat-form-field{
     margin: 0.2rem;
 }
 .titulo{
-    color:white
+    color:white;
+    text-align: center;
+    margin-top: 13rem;
 }
 .button-submit{
     margin-top: 1rem;

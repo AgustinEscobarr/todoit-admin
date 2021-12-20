@@ -4,6 +4,11 @@ import { MatTableDataSource } from '@angular/material/table';
 import { UserTypesService } from '../../services/user-types.service';
 import { Vehicle, Rol } from '../../models/register-data';
 import { UserComplete } from '../../models/user-structure';
+import { DecisionList } from '../../models/decision-list';
+import { MatDialog } from '@angular/material/dialog';
+import { EditUserComponent } from '../../components/dialogs/edit-user/edit-user.component';
+import { ModifyStatusService } from '../../services/modify-status.service';
+import { ModifyUserService } from '../../services/modify-user.service';
 
 export interface Usuario{
   Nombre:string,
@@ -48,7 +53,7 @@ export class ListsComponent implements OnInit {
   cadetes :MatTableDataSource<Usuario>=new MatTableDataSource(this.cadetesArray);
   clients :MatTableDataSource<Usuario>=new MatTableDataSource(this.clientsArray);
   admins :MatTableDataSource<Usuario>=new MatTableDataSource(this.adminsArray);
-  constructor(private userTypesService:UserTypesService) { }
+  constructor(private userTypesService:UserTypesService ,public dialog: MatDialog, private modifyUserService:ModifyUserService) { }
 
 
   ngOnInit(): void {
@@ -99,7 +104,7 @@ export class ListsComponent implements OnInit {
           Vehiculo:(e.vehicle?e.vehicle.name:''),
           user:e
         }
-        console.log(cadete)
+        
         this.cadetesArray.push(cadete);
       });
       this.valueCadete=true;
@@ -128,6 +133,27 @@ export class ListsComponent implements OnInit {
 
 
     
+  }
+  modifyUser(object :DecisionList){
+   const dialogRef = this.dialog.open(EditUserComponent, {data:object});
+    dialogRef.afterClosed().subscribe(resp=>{
+      console.log('lo logre');
+      console.log(resp);
+      if(resp!=undefined){
+        this.modifyUserService.modifyUser(resp).subscribe(resp=>{
+          console.log(resp);
+          alert('modificado con exito');
+  
+  
+        },
+        error=>{
+          alert('Error al intentar modificar el usuario, error: ' + error.status);
+        })
+      }else{
+        console.log('no mandaste nada papu');
+      }
+     
+    })
   }
 
 }

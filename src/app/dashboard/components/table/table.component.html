@@ -11,10 +11,10 @@
         
         <ng-container *ngIf="buttonsEdit==items">
           <td mat-cell>
-            <button class="button-edit" mat-button (click)="editUser(element,true)">Editar</button>
+            <button class="button-edit" mat-button (click)="editUser(element.user,true)">Editar</button>
             <ng-container>
               <td>
-                <button class="button-delete" mat-button (click)="deleteUser(element,false)">Eliminar</button>
+                <button class="button-delete" mat-button (click)="deleteUser(element.user,false)">Eliminar</button>
               </td>
             </ng-container>
           </td>

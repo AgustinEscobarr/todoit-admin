@@ -1,9 +1,9 @@
 <main>
 <mat-tab-group mat-align-tabs="center" [color]="color" *ngIf="valueFinal && valueCadete && valueAdmin"  >
     
-    <mat-tab  label="Clientes"><app-table  [dataSource]="clients" [displayedColumns]="columnsClient" [buttonsEdit]="buttonsEdit"></app-table> </mat-tab>
-    <mat-tab label="Cadetes" > <app-table [dataSource]="cadetes" [displayedColumns]="columnsCadete" [buttonsEdit]="buttonsEdit"></app-table> </mat-tab>
-    <mat-tab label="Administradores"> <app-table [dataSource]="admins" [displayedColumns]="columnsClient" [buttonsEdit]="buttonsEdit"></app-table> </mat-tab>
+    <mat-tab  label="Clientes"><app-table  [dataSource]="clients" [displayedColumns]="columnsClient" [buttonsEdit]="buttonsEdit" (onEditUser)="modifyUser($event)"></app-table> </mat-tab>
+    <mat-tab label="Cadetes" > <app-table [dataSource]="cadetes" [displayedColumns]="columnsCadete" [buttonsEdit]="buttonsEdit" (onEditUser)="modifyUser($event)"></app-table> </mat-tab>
+    <mat-tab label="Administradores"> <app-table [dataSource]="admins" [displayedColumns]="columnsClient" [buttonsEdit]="buttonsEdit" (onEditUser)="modifyUser($event)"></app-table> </mat-tab>
     
   </mat-tab-group>
 </main>

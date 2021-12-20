@@ -12,6 +12,6 @@ export class TravelByStateService {
 
   travelsGet(statusTravel:number): Observable<TravelsData[]> {
     
-    return this.http.get<TravelsData[]>(`/api/Travel/2/${statusTravel}`);
+    return this.http.get<TravelsData[]>(`/api/Travel/1/${statusTravel}`);
   }
 }

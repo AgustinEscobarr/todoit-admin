@@ -37,17 +37,17 @@ export class RegisterComponent   {
   ];
   selectVehicle :Vehicle[]=[
     {
-      id:1,
+      id:2,
       name:'Motocicleta',
       isDeleted:0
     },
     {
-      id:2,
+      id:3,
       name:'Automovil',
       isDeleted:0
     },
     {
-      id:3,
+      id:1,
       name:'Bicicleta',
       isDeleted:0
     }

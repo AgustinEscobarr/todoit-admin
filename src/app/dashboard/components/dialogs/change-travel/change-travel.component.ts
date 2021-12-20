@@ -32,20 +32,22 @@ export class ChangeTravelComponent implements OnInit {
       this.changeStatusForm= new FormGroup({
         
         observations: new FormControl()
-      })
+      });
+      this.value=this.data.elementTravel.cadeteId;
      }
 
   ngOnInit(): void {
     this.userTypesService.getCadete();
     this.userTypesService.getCadete$().subscribe(resp=>{
      this.cadetes=resp;
-     console.log(this.cadetes)
+     
      this.selectCadete=true;
-     this.value=this.data.elementTravel.cadeteId
-     console.log(this.data)
+     
+     
     })
   }
-  onSubmit(formDirective:FormGroupDirective){
+  onSubmit() :DataModifier{
+    
     this.changeStatusTravel={
       travelId:this.data.elementTravel.travelId,
       newStatusTravel:(this.data.newStatus==10?this.data.elementTravel.lastStatusTravel-1:this.data.newStatus),
@@ -55,13 +57,16 @@ export class ChangeTravelComponent implements OnInit {
       Observations:this.changeStatusForm.value.observations
 
     }
+
     if(this.data.newStatus==10 && this.data.elementTravel.lastStatusTravel==3){
       this.changeStatusTravel.newStatusTravel=1;
     }
     if(this.data.newStatus==10&&this.data.elementTravel.lastStatusTravel==7){
       this.changeStatusTravel.newStatusTravel=5;
     }
-    console.log(this.changeStatusTravel);
+    
+
+    return this.changeStatusTravel;
 
   }
   

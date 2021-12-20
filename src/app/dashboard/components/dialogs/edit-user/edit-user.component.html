@@ -1,0 +1,99 @@
+<div class="container-form">
+    
+    <h1 class="titulo">Editar Usuario</h1>
+  
+  
+
+
+    
+        <form class="form">
+
+          <mat-form-field class="form-field" appearance="fill">
+              <mat-label>Rol de Usuario</mat-label>
+              <mat-select [(value)]="userRol" class="select"   required >
+                <mat-option  [value]=option.id *ngFor="let option of selectRol" >
+                 <span style="font-weight: bold;"> {{option.name}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label class="namefield">Nombre Completo:</mat-label>
+              <input [(ngModel)]="formData.fullName" [value]="data.user.fullName" class="input" name="name" type="name" matInput  required>
+              <mat-icon matSuffix>face</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label class="namefield">Email:</mat-label>
+              <input [(ngModel)]="formData.email" [value]="data.user.email" class="input" name="email" type="email" matInput  required>
+              <mat-icon matSuffix>mail</mat-icon>
+            </mat-form-field>
+            
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label class="namefield">Teléfono Móvil</mat-label>
+              <input [(ngModel)]="formData.cellPhone" [value]="data.user.cellPhone" class="inputNumber input" name="telephone" type="tel" matInput  required>
+              <mat-icon matSuffix>phone</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label class="namefield">Direccion:</mat-label>
+              <input [(ngModel)]="formData.address" [value]="data.user.address" class="input" name="address" type="address" matInput  required>
+              <mat-icon matSuffix>home</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label>Contraseña</mat-label>
+                <input [(ngModel)]="formData.password" [value]="data.user.password" class="input"  matInput [type]="hide ? 'password' : 'text'" name="password" type="password" matInput  required>
+                <button type="button" class="button-password" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label class="namefield">Observaciones</mat-label>
+              <textarea [(ngModel)]="formData.observations" [value]="data.user.observations" class="input" name="observations" type="text" matInput require></textarea>
+              <mat-icon matSuffix>Description</mat-icon>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="fill" *ngIf="data.user.vehicle">
+              <mat-label>Vehiculo</mat-label>
+              <mat-select [(ngModel)]="formData.vehicle.id" class="input"  class="select" [(value)]="userVehicle"  required >
+                <mat-option  [value]=option.id *ngFor="let option of selectVehicle" >
+                 <span style="font-weight: bold;"> {{option.name}}</span>
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Aceptar</mat-label>
+                <mat-select  class="input"  class="select" [(value)]="valueAccepted"  required >
+                  <mat-option  [value]="true">
+                   <span style="font-weight: bold;"> Aceptado</span>
+                  </mat-option>
+                  <mat-option [value]="false">
+                    <span style="font-weight: bold;"> No Aceptado </span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+
+            <mat-form-field class="form-field" appearance="fill">
+                <mat-label>Borrar</mat-label>
+                <mat-select  class="input"  class="select" [(value)]="valueDeleted"  required >
+                  <mat-option  [value]="true">
+                   <span style="font-weight: bold;"> Borrado</span>
+                  </mat-option>
+                  <mat-option [value]="false">
+                    <span style="font-weight: bold;"> No borrado </span>
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            
+            
+            
+
+            
+                <button class="button-submit" type="button" mat-raised-button [mat-dialog-close]="onSubmit()"  >Guardar cambios</button>
+            
+        </form>
+    
+</div>

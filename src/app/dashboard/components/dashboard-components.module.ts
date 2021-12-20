@@ -6,6 +6,10 @@ import { SideNavComponent } from './side-nav/side-nav.component';
 import { HeaderComponent } from './header/header.component';
 import { RouterModule } from '@angular/router';
 import { ChangeTravelComponent } from './dialogs/change-travel/change-travel.component';
+import { EditUserComponent } from './dialogs/edit-user/edit-user.component';
+import { MatInputModule } from '@angular/material/input';
+import {  MatFormFieldModule } from "@angular/material/form-field";
+
 
 
 
@@ -16,13 +20,18 @@ import { ChangeTravelComponent } from './dialogs/change-travel/change-travel.com
     SideNavComponent,
     HeaderComponent,
     ChangeTravelComponent,
+    EditUserComponent,
+    
     
   ],
   imports: [
     CommonModule,
     MaterialModule,
-    RouterModule
+    RouterModule,
+    MatInputModule,
+    MatFormFieldModule,
+    
   ],
-  exports:[TableComponent,SideNavComponent,HeaderComponent]
+  exports:[TableComponent,SideNavComponent,HeaderComponent, EditUserComponent]
 })
 export class DashboardComponentsModule { }
