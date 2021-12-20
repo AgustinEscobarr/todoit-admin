@@ -1,6 +1,27 @@
+main{
+    min-height: 100vh;
+}
 
 .form{
     display: flex;
     flex-direction: column;
+    justify-items: center;
     align-items: center;
+    background-color: hsl(234.78,22.77%,19.8%) ;
+    padding: 1rem;
+}
+.inputNumber::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+form mat-form-field{
+    width: 100%;
+    height: 4rem;
+    background-color: white;
+    margin: 0.2rem;
+}
+.titulo{
+    color:white
+}
+.button-submit{
+    margin-top: 1rem;
 }

@@ -61,6 +61,7 @@ export class RegisterComponent   {
     this.registerForm  = new FormGroup({
       fullName: new FormControl(),
       email: new FormControl(),
+      cellPhone :new FormControl(),
       address: new FormControl(),
       password:new FormControl(),
       observations:new FormControl(),
@@ -78,6 +79,8 @@ export class RegisterComponent   {
  
    
     this.user=this.registerForm.value;
+    this.user.isAccepted=true;
+    this.user.isDeleted=false
     
     
     console.log(this.user);

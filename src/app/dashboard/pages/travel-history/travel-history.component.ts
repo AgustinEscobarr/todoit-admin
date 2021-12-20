@@ -1,39 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { TravelByStateService } from '../../services/travel-by-state.service';
+import { MatTableDataSource } from '@angular/material/table';
 
 interface options{
   value:boolean,
   viewValue:string
 }
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
+export interface HistoryData{
+  Cadete:string,
+  Cliente:string,
+  Fecha:string,
+  Hora:string,
+  Estado:string
+    
 }
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
-const ELEMENT_DATO: PeriodicElement[] = [
-  {position: 1, name: 'jajajjaa', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Cambié', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Seeeeee', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Soy un capo', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Uwu', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+
+
 @Component({
   selector: 'app-travel-history',
   templateUrl: './travel-history.component.html',
@@ -42,27 +24,37 @@ const ELEMENT_DATO: PeriodicElement[] = [
 export class TravelHistoryComponent implements OnInit {
 
 
-  selected=true
-
-  options:options[]=[
-    {
-      value:true,
-      viewValue:'Viajes Disponibles'
-    },
-    {
-      value:false,
-      viewValue:'Viajes en Curso'
-    }
-  ];
-  buttonEnable:string='symbol';
+  value=false;
+  buttonEnable:string='Estado';
+  nameSelect :string='Puedes cambiar el Estado';
   nameButton :string='Hacer algo'
-  element : PeriodicElement[]= ELEMENT_DATA;
-  elemento:PeriodicElement[]=ELEMENT_DATO
-  columns:string[] = ['position', 'name', 'weight', 'symbol'];
+  columns:string[] = ['Cadete', 'Cliente', 'Fecha','Hora','Estado'];
 
-  constructor() { }
+  historyData :HistoryData[]=[];
+
+  element :MatTableDataSource<HistoryData>=new MatTableDataSource(this.historyData);
+  
+  constructor(private travelByStateService:TravelByStateService) { }
 
   ngOnInit(): void {
+    this.travelByStateService.travelsGet(9).subscribe(resp=>{
+      console.log(resp)
+      resp.forEach(e=>{
+        let data :HistoryData;
+        
+        data={
+          Cadete:(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete?e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.fullName:''),
+          Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
+          Fecha:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate.slice(0,-17),
+          Hora:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate.slice(11,-11),
+          Estado: 'Recibido'
+        }
+        this.historyData.push(data);
+      
+        
+      })
+      this.value=true
+    });
 
 
   }
