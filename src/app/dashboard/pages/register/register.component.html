@@ -10,7 +10,7 @@
 
             <mat-form-field class="form-field" appearance="fill">
                 <mat-label>Rol de Usuario</mat-label>
-                <mat-select  class="select"  formControlName="rol" required >
+                <mat-select  class="select" [(value)]="value" formControlName="rol" required >
                   <mat-option  [value]=option *ngFor="let option of selectRol" >
                    <span style="font-weight: bold;"> {{option.name}}</span>
                   </mat-option>
@@ -54,9 +54,9 @@
                 <mat-icon matSuffix>Description</mat-icon>
               </mat-form-field>
 
-              <mat-form-field class="form-field" appearance="fill">
+              <mat-form-field class="form-field" appearance="fill" *ngIf="value.id==2">
                 <mat-label>Vehiculo</mat-label>
-                <mat-select class="input"  class="select"  formControlName="vehicle" required >
+                <mat-select class="input"  class="select"  formControlName="vehicle"  >
                   <mat-option  [value]=option *ngFor="let option of selectVehicle" >
                    <span style="font-weight: bold;"> {{option.name}}</span>
                   </mat-option>
