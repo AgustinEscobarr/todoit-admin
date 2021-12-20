@@ -1,10 +1,11 @@
 <mat-toolbar>
     <span>DASHBOARD</span>
     <span class="spacer"></span>
+    <span>{{name}}</span>
     <button mat-button [matMenuTriggerFor]="menu">Menu</button>
     <mat-menu #menu="matMenu">
     
     <mat-divider></mat-divider>
-    <button mat-menu-item>Cerrar Sesion</button>
+    <button mat-menu-item (click)="cerrarSesion()">Cerrar Sesion</button>
 </mat-menu>
   </mat-toolbar>

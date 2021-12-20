@@ -5,10 +5,12 @@ import { TravelHistoryComponent } from './pages/travel-history/travel-history.co
 import { TravelsComponent } from './pages/travels/travels.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { ListsComponent } from './pages/lists/lists.component';
+import { AuthGuard } from '../guards/auth.guard';
 
 const routes: Routes = [
   { path: '', 
   component: DashboardComponent,
+  canActivate: [AuthGuard],
   children:[
     {
     path:'history',

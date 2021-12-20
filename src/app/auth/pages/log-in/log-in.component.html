@@ -1,1 +1,25 @@
-<p>log-in works!</p>
+<main>
+  <img src="../assets/todoitlogo.gif" alt="">
+    <h1 class="titulo">Iniciar Sesion</h1>
+  
+  
+    
+        <form class="form"  [formGroup]="loginForm" #formDirective=ngForm   (ngSubmit)="onSubmit(formDirective)">
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label class="namefield">Email:</mat-label>
+              <input name="email" type="email" matInput formControlName="email" required>
+            </mat-form-field>
+            <mat-form-field class="matform" appearance="fill">
+              <mat-label>Ingrese la contraseña</mat-label>
+                <input  matInput [type]="hide ? 'password' : 'text'" name="password" type="password" matInput formControlName="password" required>
+                <button type="button" class="button-password" mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                </button>
+            </mat-form-field>
+            
+                <button class="button-submit" type="submit" mat-raised-button [disabled]="!loginForm.valid" >Entrar</button>
+            
+        </form>
+    
+    
+</main>

@@ -123,7 +123,7 @@ export class TravelsComponent implements OnInit {
        let travel :Travels;
        array=[...resp[0],...resp[1]];
        array.forEach(e=>{
-         
+         if( e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined){
          travel={
            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
@@ -140,6 +140,7 @@ export class TravelsComponent implements OnInit {
          this.element2.sort((a,b)=>{
            return (Date.parse(a.date)- Date.parse(b.date))
          });
+        }
         
        });
        
@@ -165,7 +166,7 @@ export class TravelsComponent implements OnInit {
         let travel :Travels;
         array=[...resp[0],...resp[1],...resp[2],...resp[3],...resp[4],...resp[5],...resp[6],...resp[7]];
         array.forEach(e=>{
-          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null){
+          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null && e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined){
           travel={
             Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
@@ -177,14 +178,14 @@ export class TravelsComponent implements OnInit {
            isReasigned:false,
            travelId:e.id
           };
-        }
+        
           this.element.push(travel);
          
           this.element.sort((a,b)=>{
             return (Date.parse(a.date)- Date.parse(b.date))
           });
           
-         
+        }
           
         });
         this.selected=1;
@@ -208,9 +209,9 @@ export class TravelsComponent implements OnInit {
         let travel :Travels;
         array=[...resp[0],...resp[1],...resp[3],...resp[4]];
         array.forEach(e=>{
-          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null && (e.lastStatusTravel!=1 && e.lastStatusTravel!=5)){
+          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null && e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined && (e.lastStatusTravel!=1 && e.lastStatusTravel!=5)){
           travel={
-            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
+          Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
            Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
            date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
@@ -220,14 +221,14 @@ export class TravelsComponent implements OnInit {
            isReasigned:false,
            travelId:e.id
           };
-        }
+        
           this.element3.push(travel);
          
           this.element3.sort((a,b)=>{
             return (Date.parse(a.date)- Date.parse(b.date))
           });
           
-         
+        }
           
         });
         
@@ -250,7 +251,7 @@ export class TravelsComponent implements OnInit {
         let travel :Travels;
         array=[...resp[0],...resp[1]];
         array.forEach(e=>{
-          
+          if( e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined){
           travel={
             Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
            Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
@@ -267,7 +268,7 @@ export class TravelsComponent implements OnInit {
           this.element4.sort((a,b)=>{
             return (Date.parse(a.date)- Date.parse(b.date))
           });
-          
+        }
          
           
         });

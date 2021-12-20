@@ -29,7 +29,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   select :number=1
    
    @ViewChild(MatPaginator) paginator!: MatPaginator;
-   @ViewChild(MatSort) sort: MatSort=new MatSort();
+  
    
   constructor() {
     
@@ -39,7 +39,7 @@ export class TableComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
-    this.dataSource.sort = this.sort;
+    
   }
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
