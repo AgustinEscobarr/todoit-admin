@@ -1,1 +1,19 @@
-<p>change-travel works!</p>
+<form class="form"  [formGroup]="changeStatusForm" #formDirective=ngForm   (ngSubmit)="onSubmit(formDirective)">
+<span *ngIf="data.elementTravel.cadeteId==0 && data.newStatus!=5">Es necesario que selecciones un cadete para asignar un nuevo estado</span>
+<span *ngIf="data.elementTravel.cadeteId!=0 && data.newStatus!=10">Actualmente este viaje está asignado al cadete con Id: {{data.elementTravel.cadeteId}}, puedes cambiar el cadete si es necesario, sino dejalo así.</span>
+<span *ngIf="data.newStatus==5">No es necesario un cadete para cambiar a estado Reparado.</span>
+<span *ngIf="data.newStatus==10">Estas cacelando este viaje para el cadete con Id: {{data.elementTravel.cadeteId}} </span>
+<mat-form-field class="form-field"  appearance="fill" *ngIf="selectCadete">
+    <mat-label>Cadete</mat-label>
+    <mat-select [disabled]="data.newStatus==10||data.newStatus==5"  class="select" [(value)]="value"  required >
+      <mat-option  [value]="option.id" *ngFor="let option of cadetes" >
+       <span style="font-weight: bold;">Id: {{option.id}} | {{option.fullName}} ({{option.isDeleted? 'Eliminado':'Activo'}})</span>
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="matform" appearance="fill">
+    <mat-label class="namefield">Observaciones</mat-label>
+    <textarea class="text-observations" name="observations" type="text" matInput formControlName="observations" required></textarea>
+  </mat-form-field>
+  <button class="button-submit" type="submit" mat-raised-button [disabled]="!changeStatusForm.valid" [mat-dialog-close]="changeStatusTravel" >Enviar</button>
+</form>

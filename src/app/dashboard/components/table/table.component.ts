@@ -2,7 +2,7 @@ import { AfterViewInit, Component, EventEmitter, Input, OnInit, Output, ViewChil
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Travels } from '../../models/travels-byModify-data';
+import { Travels, InfoTravelChange } from '../../models/travels-byModify-data';
 import { States } from '../../pages/travels/travels.component';
 
 
@@ -20,8 +20,8 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() nameButton: string='';
   @Input() buttonEnable :string='';
   @Input() displayedColumns: string[] = [];
-  @Input() dataSource :MatTableDataSource<any[]>=new MatTableDataSource();
-  @Output() onStateChange: EventEmitter<object>=new EventEmitter()
+  @Input() dataSource :MatTableDataSource<any>=new MatTableDataSource();
+  @Output() onStateChange: EventEmitter<InfoTravelChange>=new EventEmitter()
   select :number=1
    
    @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -45,9 +45,9 @@ export class TableComponent implements OnInit, AfterViewInit {
       this.dataSource.paginator.firstPage();
     }
   }
-  sendNewState(state:number, elementTravel :object ){
-    let object :object={
-      state:state,
+  sendNewState(state:number, elementTravel :Travels ){
+    let object :InfoTravelChange={
+      newStatus:state,
       elementTravel: elementTravel
     }
     this.onStateChange.emit(object);

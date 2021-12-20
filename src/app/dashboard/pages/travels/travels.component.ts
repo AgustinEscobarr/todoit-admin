@@ -4,7 +4,10 @@ import { TravelByStateService } from '../../services/travel-by-state.service';
 import { TravelsData } from '../../models/travels-data';
 import { StatusTravelPipe } from '../../pipes/status-travel.pipe';
 import { MatTableDataSource } from '@angular/material/table';
-import { Travels } from '../../models/travels-byModify-data';
+import { Travels, InfoTravelChange } from '../../models/travels-byModify-data';
+import { MatDialog } from '@angular/material/dialog';
+import { ChangeTravelComponent } from '../../components/dialogs/change-travel/change-travel.component';
+import { ModifyStatusService } from '../../services/modify-status.service';
 
 export interface States{
   viewValue:string,
@@ -94,20 +97,21 @@ export class TravelsComponent implements OnInit {
   element2 :Travels[]=[];
   element3 :Travels[]=[];
   element4 :Travels[]=[];
-  elementTable: MatTableDataSource<any>=new MatTableDataSource(this.element);
-  elementTable2: MatTableDataSource<any>=new MatTableDataSource(this.element2);
-  elementTable3: MatTableDataSource<any>=new MatTableDataSource(this.element3);
-  elementTable4: MatTableDataSource<any>=new MatTableDataSource(this.element4);
+  elementTable: MatTableDataSource<Travels>=new MatTableDataSource(this.element);
+  elementTable2: MatTableDataSource<Travels>=new MatTableDataSource(this.element2);
+  elementTable3: MatTableDataSource<Travels>=new MatTableDataSource(this.element3);
+  elementTable4: MatTableDataSource<Travels>=new MatTableDataSource(this.element4);
   
   
 
-  constructor(private travelByStateService :TravelByStateService, private statusTravelPipe:StatusTravelPipe) { }
+  constructor(private travelByStateService :TravelByStateService, private statusTravelPipe:StatusTravelPipe, public dialog :MatDialog, private modifyStatusService:ModifyStatusService ) { }
   
 
   ngOnInit(): void {
     this.getActiveTravels();
     this.getPendingTravels();
     this.getTravelsInProgress();
+    this.getFinishedTravels();
   }
   getPendingTravels(){
     let array :TravelsData[]=[]
@@ -128,7 +132,8 @@ export class TravelsComponent implements OnInit {
            lastStatusTravel:e.lastStatusTravel,
            observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
            cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false
+           isReasigned:false,
+           travelId:e.id
          };
          this.element2.push(travel);
         
@@ -169,7 +174,8 @@ export class TravelsComponent implements OnInit {
            lastStatusTravel:e.lastStatusTravel,
            observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
            cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5||e.lastStatusTravel==4 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false
+           isReasigned:false,
+           travelId:e.id
           };
           this.element.push(travel);
          
@@ -210,7 +216,8 @@ export class TravelsComponent implements OnInit {
            lastStatusTravel:e.lastStatusTravel,
            observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
            cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false
+           isReasigned:false,
+           travelId:e.id
           };
           this.element3.push(travel);
          
@@ -233,10 +240,10 @@ export class TravelsComponent implements OnInit {
     
      
     let cuatro = this.travelByStateService.travelsGet(4);
-    let siete =this.travelByStateService.travelsGet(7);
+    let ocho =this.travelByStateService.travelsGet(8);
     
 
-    forkJoin([cuatro,siete]).subscribe(
+    forkJoin([cuatro,ocho]).subscribe(
       resp=>{
         let travel :Travels;
         array=[...resp[0],...resp[1]];
@@ -250,7 +257,8 @@ export class TravelsComponent implements OnInit {
            lastStatusTravel:e.lastStatusTravel,
            observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
            cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false
+           isReasigned:false,
+           travelId:e.id
           };
           this.element4.push(travel);
          
@@ -263,14 +271,17 @@ export class TravelsComponent implements OnInit {
         });
         
    
-      }
-      
-    )
+      });
 
   }
-  changeState(change:object){
+  changeState(change:InfoTravelChange){
     console.log(change);
-
+    const dialogRef =this.dialog.open(ChangeTravelComponent,{data:change})
+    dialogRef.afterClosed().subscribe(resp=>{
+      console.log('Estoy acá entonces funciona');
+      console.log(resp);
+      
+    })
   }
 
 }

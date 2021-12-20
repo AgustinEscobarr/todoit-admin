@@ -6,6 +6,11 @@ export interface Travels{
     lastStatusTravel:number,
     observation:string,
     isReasigned:boolean,
-    cadeteId:number
+    cadeteId:number,
+    travelId:number
   
+  }
+  export interface InfoTravelChange{
+    newStatus:number,
+    elementTravel:Travels
   }
