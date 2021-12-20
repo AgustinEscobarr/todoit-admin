@@ -6,16 +6,19 @@ import { MaterialModule } from 'src/app/material.module';
 import { TravelsComponent } from './travels/travels.component';
 import { StatusTravelPipe } from '../pipes/status-travel.pipe';
 import { RegisterComponent } from './register/register.component';
+import { ListsComponent } from './lists/lists.component';
+import { MatTabsModule } from '@angular/material/tabs';
 
 
 
 
 @NgModule({
-  declarations: [TravelHistoryComponent, TravelsComponent, RegisterComponent],
+  declarations: [TravelHistoryComponent, TravelsComponent, RegisterComponent, ListsComponent],
   imports: [
     CommonModule,
     DashboardComponentsModule,
-    MaterialModule
+    MaterialModule,
+    MatTabsModule
   ],
   providers:[StatusTravelPipe]
   ,

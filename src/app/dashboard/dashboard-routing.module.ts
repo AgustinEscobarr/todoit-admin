@@ -4,6 +4,7 @@ import { DashboardComponent } from './dashboard.component';
 import { TravelHistoryComponent } from './pages/travel-history/travel-history.component';
 import { TravelsComponent } from './pages/travels/travels.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { ListsComponent } from './pages/lists/lists.component';
 
 const routes: Routes = [
   { path: '', 
@@ -20,6 +21,10 @@ const routes: Routes = [
     {
       path:'register',
       component:RegisterComponent
+    },
+    {
+      path:'lists',
+      component:ListsComponent
     }
   ]
 }

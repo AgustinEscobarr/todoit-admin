@@ -19,9 +19,11 @@ export class TableComponent implements OnInit, AfterViewInit {
   @Input() states :States[]=[];
   @Input() nameButton: string='';
   @Input() buttonEnable :string='';
+  @Input() buttonsEdit:string='';
   @Input() displayedColumns: string[] = [];
   @Input() dataSource :MatTableDataSource<any>=new MatTableDataSource();
-  @Output() onStateChange: EventEmitter<InfoTravelChange>=new EventEmitter()
+  @Output() onStateChange: EventEmitter<InfoTravelChange>=new EventEmitter();
+  @Output() onEditUser: EventEmitter<object>=new EventEmitter();
   select :number=1
    
    @ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -52,6 +54,12 @@ export class TableComponent implements OnInit, AfterViewInit {
     }
     this.onStateChange.emit(object);
     
+  }
+  editUser(element:object){
+
+  }
+  deleteUser(element:object){
+
   }
 
   

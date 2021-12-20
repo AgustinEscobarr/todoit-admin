@@ -9,6 +9,13 @@
       <th mat-header-cell *matHeaderCellDef mat-sort-header class="color-font " style="font-size: 1rem;"> {{items}} </th>
       <td mat-cell *matCellDef="let element" class="color-font align-tex "> {{element[items]}} 
         
+        <ng-container *ngIf="buttonsEdit==items">
+          <td mat-cell>
+            <button mat-button (click)="editUser(element)">Editar</button>
+            <button mat-button (click)="deleteUser(element)">Elminitar</button>
+          </td>
+
+        </ng-container>
         <ng-container *ngIf="buttonEnable==items">
           <td mat-cell>
           <mat-form-field class="form-field border-color"appearance="fill" >
