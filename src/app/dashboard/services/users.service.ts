@@ -11,7 +11,7 @@ export class UsersService {
   constructor(private http :HttpClient){}
 
   getUsers():Observable<UserComplete[]> {
-    return this.http.get<UserComplete[]>('/api/Users?userOperation=1');
+    return this.http.get<UserComplete[]>('http://logistica.asambleas.cl/api/Users?userOperation=1');
   }
 }
 

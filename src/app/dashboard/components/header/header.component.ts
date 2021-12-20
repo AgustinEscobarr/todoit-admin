@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 @Component({
@@ -10,6 +10,7 @@ export class HeaderComponent implements OnInit {
 
   name: string =JSON.parse(localStorage.getItem('userLoged')||'').fullName
 
+  @Input() sidenavMode :string='';
   constructor(private route:Router) { }
 
   ngOnInit(): void {

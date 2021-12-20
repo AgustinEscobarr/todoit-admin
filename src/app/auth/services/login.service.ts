@@ -15,6 +15,6 @@ export class LoginService {
 
  
   login(client:UserLogin): Observable<UserComplete> {
-    return this.http.get<UserComplete>(`/api/Login?email=${client.email}&password=${client.password}`)
+    return this.http.get<UserComplete>(`http://logistica.asambleas.cl/api/Login?email=${client.email}&password=${client.password}`)
   }
 }

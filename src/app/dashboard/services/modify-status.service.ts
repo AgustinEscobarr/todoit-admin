@@ -13,6 +13,6 @@ export class ModifyStatusService {
 
   modify(change:DataModifier): Observable<TravelsData> {
     
-    return this.http.post<TravelsData>(`/api/Travel?travelId=${change.travelId}&statusTravel=${change.newStatusTravel}&userOperation=${change.userOperation}&cadeteId=${change.cadeteId}&isReasigned=${change.isReasigned}&observations=${change.Observations}`,change);
+    return this.http.post<TravelsData>(`http://logistica.asambleas.cl/api/Travel?travelId=${change.travelId}&statusTravel=${change.newStatusTravel}&userOperation=${change.userOperation}&cadeteId=${change.cadeteId}&isReasigned=${change.isReasigned}&observations=${change.Observations}`,change);
   }
 }

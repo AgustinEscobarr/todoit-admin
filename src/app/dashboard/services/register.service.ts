@@ -12,7 +12,7 @@ export class RegisterService {
 
   sendRegister(user :RegisterData) :Observable<RegisterData>{
 
-    return this.http.post<RegisterData>('/api/Users',user);
+    return this.http.post<RegisterData>('http://logistica.asambleas.cl/api/Users',user);
 
   }
 

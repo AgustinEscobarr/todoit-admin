@@ -12,6 +12,6 @@ export class ModifyUserService {
 
   modifyUser(change:UserComplete): Observable<UserComplete> {
     
-    return this.http.post<UserComplete>(`/api/Users`,change);
+    return this.http.post<UserComplete>(`http://logistica.asambleas.cl/api/Users`,change);
   }
 }

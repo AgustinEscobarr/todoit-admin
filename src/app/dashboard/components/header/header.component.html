@@ -1,8 +1,21 @@
 <mat-toolbar>
     <span>DASHBOARD</span>
+    <button mat-button [matMenuTriggerFor]="res" *ngIf="sidenavMode==='over'"><mat-icon>menu</mat-icon></button>
+    <mat-menu #res="matMenu" >
+    
+      <button mat-menu-item class="decoration" mat-list-item [routerLink]="['/dashboard/register']" routerLinkActive="router-link-active" >Registro</button>
+      <mat-divider></mat-divider> 
+      <button mat-menu-item class="decoration" mat-list-item [routerLink]="['/dashboard/travels']" routerLinkActive="router-link-active" >Viajes</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item class="decoration" mat-list-item [routerLink]="['/dashboard/history']" routerLinkActive="router-link-active">Historial de Viajes</button>
+      <mat-divider></mat-divider>
+      <button mat-menu-item class="decoration" mat-list-item [routerLink]="['/dashboard/lists']" routerLinkActive="router-link-active">Lista de Viajes</button>
+      
+      
+  </mat-menu>
     <span class="spacer"></span>
-    <span>{{name}}</span>
-    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+    <span> Bienvenido {{name}}!!!</span>
+    <button mat-button [matMenuTriggerFor]="menu"><mat-icon>more_vert</mat-icon></button>
     <mat-menu #menu="matMenu">
     
     <mat-divider></mat-divider>
