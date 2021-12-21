@@ -38,18 +38,11 @@ export class LogInComponent implements OnInit {
    
     
     this.user  = this.loginForm.value;
-    
-    console.log(this.user);
     formDirective.resetForm();
     this.loginForm.reset();
-    
-       
-      
       
       this.loginService.login (this.user).subscribe(  (resp:UserComplete) => {
   
-      
-      
       let userLoged= new UserLoged('');
       if(resp.rol.id==1){
         userLoged.id=resp.id.toString()
@@ -77,7 +70,7 @@ export class LogInComponent implements OnInit {
   
   }
   redirect(){
-    this.route.navigate(['dashboard']);
+    this.route.navigate(['dashboard/register']);
   }
   
   

@@ -69,12 +69,10 @@ export class ListsComponent implements OnInit {
     this.userTypesService.getFinalUsers();
     this.userTypesService.getFinalsUsers$().subscribe(resp=>{
       let cliente :Usuario;
-      console.log(resp);
       resp.forEach(e=>{
         cliente={
          
           Nombre: e.fullName,
-          
           Dirección:e.address,
           Teléfono:e.cellPhone,
           Email:e.email,
@@ -92,11 +90,9 @@ export class ListsComponent implements OnInit {
     this.userTypesService.getCadete();
     this.userTypesService.getCadete$().subscribe(resp=>{
       let cadete :Usuario;
-      console.log(resp);
       resp.forEach(e=>{
         cadete={
           Nombre: e.fullName,
-          
           Dirección:e.address,
           Teléfono:e.cellPhone,
           Email:e.email,
@@ -114,11 +110,9 @@ export class ListsComponent implements OnInit {
     this.userTypesService.getAdmins();
     this.userTypesService.getAdmins$().subscribe(resp=>{
       let admin :Usuario;
-      console.log(resp);
       resp.forEach(e=>{
         admin={
           Nombre: e.fullName,
-          
           Dirección:e.address,
           Teléfono:e.cellPhone,
           Email:e.email,
@@ -137,11 +131,8 @@ export class ListsComponent implements OnInit {
   modifyUser(object :DecisionList){
    const dialogRef = this.dialog.open(EditUserComponent, {data:object});
     dialogRef.afterClosed().subscribe(resp=>{
-      console.log('lo logre');
-      console.log(resp);
       if(resp!=undefined){
         this.modifyUserService.modifyUser(resp).subscribe(resp=>{
-          console.log(resp);
           alert('modificado con exito');
   
   
@@ -150,7 +141,7 @@ export class ListsComponent implements OnInit {
           alert('Error al intentar modificar el usuario, error: ' + error.status);
         })
       }else{
-        console.log('no mandaste nada papu');
+        console.log('Cancelado');
       }
      
     })

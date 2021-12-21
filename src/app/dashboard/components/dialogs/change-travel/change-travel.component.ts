@@ -40,7 +40,6 @@ export class ChangeTravelComponent implements OnInit {
     this.userTypesService.getCadete();
     this.userTypesService.getCadete$().subscribe(resp=>{
      this.cadetes=resp;
-     
      this.selectCadete=true;
      
      
@@ -65,7 +64,6 @@ export class ChangeTravelComponent implements OnInit {
       this.changeStatusTravel.newStatusTravel=5;
     }
     
-
     return this.changeStatusTravel;
 
   }

@@ -38,7 +38,6 @@ export class TravelHistoryComponent implements OnInit {
 
   ngOnInit(): void {
     this.travelByStateService.travelsGet(9).subscribe(resp=>{
-      console.log(resp)
       resp.forEach(e=>{
         let data :HistoryData;
         
