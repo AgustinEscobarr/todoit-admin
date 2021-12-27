@@ -1,13 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { forkJoin, last } from 'rxjs';
-import { TravelByStateService } from '../../services/travel-by-state.service';
-import { TravelsData } from '../../models/travels-data';
-import { StatusTravelPipe } from '../../pipes/status-travel.pipe';
 import { MatTableDataSource } from '@angular/material/table';
 import { Travels, InfoTravelChange } from '../../models/travels-byModify-data';
 import { MatDialog } from '@angular/material/dialog';
 import { ChangeTravelComponent } from '../../components/dialogs/change-travel/change-travel.component';
 import { ModifyStatusService } from '../../services/modify-status.service';
+import { GroupTravelsByStatusService } from '../../services/group-travels-by-status.service';
 
 export interface States{
   viewValue:string,
@@ -93,18 +90,15 @@ export class TravelsComponent implements OnInit {
   nameSelect :string='Puedes cambiar el Estado';
   nameButton :string='Hacer algo'
   columns:string[] = ['Cliente', 'Dirección', 'Estado'];
-  element :Travels[]=[];
-  element2 :Travels[]=[];
-  element3 :Travels[]=[];
-  element4 :Travels[]=[];
-  elementTable: MatTableDataSource<Travels>=new MatTableDataSource(this.element);
-  elementTable2: MatTableDataSource<Travels>=new MatTableDataSource(this.element2);
-  elementTable3: MatTableDataSource<Travels>=new MatTableDataSource(this.element3);
-  elementTable4: MatTableDataSource<Travels>=new MatTableDataSource(this.element4);
+  elementTable: MatTableDataSource<Travels>=new MatTableDataSource();
+  elementTable2: MatTableDataSource<Travels>=new MatTableDataSource();
+  elementTable3: MatTableDataSource<Travels>=new MatTableDataSource();
+  elementTable4: MatTableDataSource<Travels>=new MatTableDataSource();
   
   
 
-  constructor(private travelByStateService :TravelByStateService, private statusTravelPipe:StatusTravelPipe, public dialog :MatDialog, private modifyStatusService:ModifyStatusService ) { }
+  constructor( public dialog :MatDialog, private modifyStatusService:ModifyStatusService, private groupTravelsByStatusService:GroupTravelsByStatusService ) {
+   }
   
 
   ngOnInit(): void {
@@ -114,167 +108,32 @@ export class TravelsComponent implements OnInit {
     this.getFinishedTravels();
   }
   getPendingTravels(){
-    let array :TravelsData[]=[]
-    let uno = this.travelByStateService.travelsGet(1);
-    let cinco = this.travelByStateService.travelsGet(5);
-   
-   forkJoin([uno,cinco]).subscribe(
-     resp=>{
-       let travel :Travels;
-       array=[...resp[0],...resp[1]];
-       array.forEach(e=>{
-         if( e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined){
-         travel={
-           Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
-           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
-           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
-           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
-           lastStatusTravel:e.lastStatusTravel,
-           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
-           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false,
-           travelId:e.id
-         };
-         this.element2.push(travel);
-        
-         this.element2.sort((a,b)=>{
-           return (Date.parse(a.date)- Date.parse(b.date))
-         });
-        }
-        
-       });
-       
-  
-     }
-     
-   )
+    this.groupTravelsByStatusService.getArrayTravels('pending', 1,5);
+    this.groupTravelsByStatusService.getPendingTravels().subscribe(resp=>{
+      this.elementTable2=new MatTableDataSource(resp);
+    });
     
   }
   getActiveTravels(){
-    let array :TravelsData[]=[]
-    let uno = this.travelByStateService.travelsGet(1);
-    let dos = this.travelByStateService.travelsGet(2);
-    let tres = this.travelByStateService.travelsGet(3);
-    let cuatro=this.travelByStateService.travelsGet(4); 
-    let cinco = this.travelByStateService.travelsGet(5);
-    let seis = this.travelByStateService.travelsGet(6);
-    let siete =this.travelByStateService.travelsGet(7);
-    let ocho = this.travelByStateService.travelsGet(8);
-
-    forkJoin([uno,dos,tres,cuatro,cinco,seis,siete,ocho]).subscribe(
-      resp=>{
-        let travel :Travels;
-        array=[...resp[0],...resp[1],...resp[2],...resp[3],...resp[4],...resp[5],...resp[6],...resp[7]];
-        array.forEach(e=>{
-          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null && e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined){
-          travel={
-            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
-           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
-           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
-           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
-           lastStatusTravel:e.lastStatusTravel,
-           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
-           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5||e.lastStatusTravel==4 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false,
-           travelId:e.id
-          };
-        
-          this.element.push(travel);
-         
-          this.element.sort((a,b)=>{
-            return (Date.parse(a.date)- Date.parse(b.date))
-          });
-          
-        }
-          
-        });
-        this.selected=1;
-   
-      }
-      
-    )
+    this.groupTravelsByStatusService.getArrayTravels('active', 1,2,3,4,5,6,7,8);
+    this.groupTravelsByStatusService.getActiveTravels().subscribe(resp=>{
+      this.elementTable=new MatTableDataSource(resp);
+      this.selected=1;
+    });
 
   }
   getTravelsInProgress(){
-    let array :TravelsData[]=[]
-    
-    let dos = this.travelByStateService.travelsGet(2);
-    let tres = this.travelByStateService.travelsGet(3); 
-    let seis = this.travelByStateService.travelsGet(6);
-    let siete =this.travelByStateService.travelsGet(7);
-    let ocho = this.travelByStateService.travelsGet(8);
-
-    forkJoin([dos,tres,seis,siete,ocho]).subscribe(
-      resp=>{
-        let travel :Travels;
-        array=[...resp[0],...resp[1],...resp[3],...resp[4]];
-        array.forEach(e=>{
-          if(e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete!=null && e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined && (e.lastStatusTravel!=1 && e.lastStatusTravel!=5)){
-          travel={
-          Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
-           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
-           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
-           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
-           lastStatusTravel:e.lastStatusTravel,
-           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
-           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false,
-           travelId:e.id
-          };
-        
-          this.element3.push(travel);
-         
-          this.element3.sort((a,b)=>{
-            return (Date.parse(a.date)- Date.parse(b.date))
-          });
-          
-        }
-          
-        });
-        
-   
-      }
-      
-    )
+    this.groupTravelsByStatusService.getArrayTravels('inProgress', 2,3,6,7,8);
+    this.groupTravelsByStatusService.getInProgressTravels().subscribe(resp=>{
+      this.elementTable3=new MatTableDataSource(resp); 
+    });
 
   }
   getFinishedTravels(){
-    let array :TravelsData[]=[]
-    
-     
-    let cuatro = this.travelByStateService.travelsGet(4);
-    let ocho =this.travelByStateService.travelsGet(8);
-    
-
-    forkJoin([cuatro,ocho]).subscribe(
-      resp=>{
-        let travel :Travels;
-        array=[...resp[0],...resp[1]];
-        array.forEach(e=>{
-          if( e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente!=undefined){
-          travel={
-            Cliente:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.fullName,
-           Dirección:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].equipment.cliente.address,
-           Estado: this.statusTravelPipe.transform(e.lastStatusTravel),
-           date: e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].operationDate,
-           lastStatusTravel:e.lastStatusTravel,
-           observation:e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].observation,
-           cadeteId:(e.lastStatusTravel==1|| e.lastStatusTravel==5 ? 0 : e.travelEquipmentDTOs[e.travelEquipmentDTOs.length-1].cadete.id),
-           isReasigned:false,
-           travelId:e.id
-          };
-          this.element4.push(travel);
-         
-          this.element4.sort((a,b)=>{
-            return (Date.parse(a.date)- Date.parse(b.date))
-          });
-        }
-         
-          
-        });
-        
-   
-      });
+    this.groupTravelsByStatusService.getArrayTravels('finished', 4,8);
+    this.groupTravelsByStatusService.getFinishedTravels().subscribe(resp=>{
+      this.elementTable4=new MatTableDataSource(resp);
+    });
 
   }
   changeState(change:InfoTravelChange){
