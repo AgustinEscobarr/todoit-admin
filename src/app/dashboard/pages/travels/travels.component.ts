@@ -94,13 +94,9 @@ export class TravelsComponent implements OnInit {
   elementTable2: MatTableDataSource<Travels>=new MatTableDataSource();
   elementTable3: MatTableDataSource<Travels>=new MatTableDataSource();
   elementTable4: MatTableDataSource<Travels>=new MatTableDataSource();
-  
-  
 
-  constructor( public dialog :MatDialog, private modifyStatusService:ModifyStatusService, private groupTravelsByStatusService:GroupTravelsByStatusService ) {
-   }
+  constructor( public dialog :MatDialog, private modifyStatusService:ModifyStatusService, private groupTravelsByStatusService:GroupTravelsByStatusService ) {}
   
-
   ngOnInit(): void {
     this.getActiveTravels();
     this.getPendingTravels();
